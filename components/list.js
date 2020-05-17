@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, ShadowPropTypesIOS } from 'react-native';
+import SafeAreaView from 'react-native-safe-area-view';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function MovieList() {
+export default function MovieList(props) {
 
   const [ movies, setMovies ] = useState([]);
 
@@ -17,20 +19,29 @@ export default function MovieList() {
         .catch( error => console.log(error));
   }, []);
 
+  const movieClicked = (movie) => {
+      props.navigation.navigate("Detail")
+  }
+
+
   return (
     // <View style={styles.container}>
-    <View>
-      <Image source={require('../assets/mobile-movieRater.png')} style={{width: '100%', height:135, paddingTop: 30}} resizeMode='contain' />
-      <FlatList
-        data={movies}
-        renderItem={({item}) => (
-            <View style={styles.item}>
-                <Text style={styles.itemText}>{item.title}</Text>
-            </View>            
-        )}
-        keyExtractor={(item, index) => index.toString()}
-        />
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+        <View>
+        <Image source={require('../assets/mobile-movieRater.png')} style={{width: '100%', height:135, paddingTop: 30}} resizeMode='contain' />
+        <FlatList
+            data={movies}
+            renderItem={({item}) => (
+                <TouchableOpacity onPress={() => movieClicked(item)}>
+                <View style={styles.item}>
+                    <Text style={styles.itemText}>{item.title}</Text>
+                </View>   
+                </TouchableOpacity>         
+            )}
+            keyExtractor={(item, index) => index.toString()}
+            />
+        </View>
+    </SafeAreaView>
   );
 }
 
