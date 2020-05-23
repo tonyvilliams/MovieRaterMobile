@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import { FontAwesome, FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
@@ -37,7 +37,11 @@ Detail.navigationOptions = screenProps => ({
     fontWeight: 'bold',
     fontSize: 24,
     alignSelf: 'center'
-  }
+    // textAlign: 'center'
+  },
+  headerRight: (
+       <Button title="Edit" color="black" onPress={(movie) => screenProps.navigation.navigate("Edit", {movie: screenProps.navigation.getParam("movie")})} />
+  )  
 })
 
 const styles = StyleSheet.create({
