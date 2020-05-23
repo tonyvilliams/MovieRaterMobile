@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, Image, ShadowPropTypesIOS } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+// import Detail from 'detail';
 
 export default function MovieList(props) {
 
@@ -20,7 +21,7 @@ export default function MovieList(props) {
   }, []);
 
   const movieClicked = (movie) => {
-      props.navigation.navigate("Detail")
+      props.navigation.navigate("Detail", {movie: movie})
   }
 
 
@@ -33,9 +34,9 @@ export default function MovieList(props) {
             data={movies}
             renderItem={({item}) => (
                 <TouchableOpacity onPress={() => movieClicked(item)}>
-                <View style={styles.item}>
-                    <Text style={styles.itemText}>{item.title}</Text>
-                </View>   
+                  <View style={styles.item}>
+                      <Text style={styles.itemText}>{item.title}</Text>
+                  </View>   
                 </TouchableOpacity>         
             )}
             keyExtractor={(item, index) => index.toString()}

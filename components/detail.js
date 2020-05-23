@@ -9,7 +9,8 @@ export default function Detail(props) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
         <View>
-        <Text>Details about {movie.title}</Text>
+        <Text>{movie.title}</Text>
+        <Text>{movie.description}</Text>
         </View>
     </SafeAreaView>
   );
