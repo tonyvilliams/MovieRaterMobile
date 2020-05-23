@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 
-export default function Detail() {
+export default function Detail(props) {
 
-
+  const movie = props.navigation.getParam('movie', null);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
         <View>
-        <Text>Details will be listed here</Text>
+        <Text>Details about {movie.title}</Text>
         </View>
     </SafeAreaView>
   );

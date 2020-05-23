@@ -8,7 +8,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 const AppNavigator = createStackNavigator({
   MovieList: {screen: MovieList},
-  Detail: {screen: Detail},
+  Detail: {screen: Detail}
 })
 
 const App = createAppContainer(AppNavigator)
