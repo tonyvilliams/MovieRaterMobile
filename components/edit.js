@@ -5,8 +5,8 @@ import SafeAreaView from 'react-native-safe-area-view';
 export default function Edit(props) {
 
   const movie = props.navigation.getParam('movie', null);
-  const [title, setTitle] = useState(movie.title);
-  const [description, setDescription] = useState(movie.description);
+  const [ title, setTitle ] = useState(movie.title);
+  const [ description, setDescription] = useState(movie.description);
 
   const saveMovie = () => {
     props.navigation.goBack();
@@ -15,21 +15,20 @@ export default function Edit(props) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.container}>
-            <Text>{movie.title}</Text>
-            <Text>{movie.description}</Text>
              <Text style={styles.label}>Title</Text> 
              <TextInput 
                 style={styles.input}
                 placeholder="Title"
                 onChangeText={text => setTitle(text)}
-                vaule={title}             
+                value={title}             
              />
              <Text style={styles.label}>Description</Text> 
              <TextInput 
                 style={styles.input}
                 placeholder="Description"
                 onChangeText={text => setDescription(text)}
-                vaule={description}             
+                value={description}
+                multiline numberOfLines={4}             
              />  
              <Button onPress={() => saveMovie()} title="Save" />      
         </View>
