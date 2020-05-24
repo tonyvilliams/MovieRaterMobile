@@ -23,7 +23,6 @@ export default function MovieList(props) {
       props.navigation.navigate("Detail", {movie: movie, title: movie.title})
   }
 
-
   return (
     // <View style={styles.container}>
     <SafeAreaView style={{ flex: 1 }}>

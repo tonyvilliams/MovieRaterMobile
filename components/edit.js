@@ -51,13 +51,8 @@ export default function Edit(props) {
 };
 
 Edit.navigationOptions = screenProps => ({
-  // title: screenProps.navigation.getParam('title'),
-  title: "Editing this movie",
-  
-  headerStyle:{
-    backgroundColor: 'orange'
-  },
-  headerTintColor: '#fff',
+  title: screenProps.navigation.getParam('title'),
+  headerTintColor: 'black',
   headerTitleStyle: {
     fontWeight: 'bold',
     fontSize: 24,

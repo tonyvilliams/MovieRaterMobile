@@ -11,7 +11,6 @@ export default function Detail(props) {
   return (
     <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.container}>
-        {/* <Text>{movie.title}</Text> */}
           <View style={styles.starContainer}>
             <FontAwesomeIcon style={movie.avg_rating > 0 ? styles.orange : styles.white  } icon={faStar}/>
             <FontAwesomeIcon style={movie.avg_rating > 1 ? styles.orange : styles.white  } icon={faStar}/>
@@ -30,7 +29,8 @@ export default function Detail(props) {
 Detail.navigationOptions = screenProps => ({
   title: screenProps.navigation.getParam('title'),
   headerStyle:{
-    backgroundColor: 'orange'
+    backgroundColor: 'orange',
+    // color: 'black'
   },
   headerTintColor: '#fff',
   headerTitleStyle: {
@@ -40,7 +40,7 @@ Detail.navigationOptions = screenProps => ({
     // textAlign: 'center'
   },
   headerRight: (
-       <Button title="Edit" color="black" onPress={(movie) => screenProps.navigation.navigate("Edit", {movie: screenProps.navigation.getParam("movie")})} />
+       <Button title="Edit" color="black" onPress={(movie) => screenProps.navigation.navigate("Edit", {movie: screenProps.navigation.getParam("movie"), title: screenProps.navigation.getParam("title")})} />
   )  
 })
 
@@ -49,8 +49,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#282c35',
     padding: 10,
-    // alignItems: "center",
-    // justifyContent: "center",
   },
   item:{
     flex: 1,
@@ -77,5 +75,9 @@ const styles = StyleSheet.create({
   },
   white: {
     color: 'white'
+  },
+  headerRight: {
+    color: 'black'
+
   }
 });
