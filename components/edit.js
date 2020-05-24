@@ -9,8 +9,22 @@ export default function Edit(props) {
   const [ description, setDescription] = useState(movie.description);
 
   const saveMovie = () => {
-    props.navigation.goBack();
-  }
+      fetch(`http://10.0.2.2:8000/api/movies/${movie.id}/`, {
+          method: 'PUT',
+          headers: {
+             'Authorization': `Token f5da4e845178ff24b41d39188065699247835def`,
+             'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ title: title, description: description })
+      }).then( res => res.json())
+        .then( movie => {
+          console.log(movie);
+          props.navigation.navigate("Detail", {movie: movie, title: movie.title})
+        })
+        .catch( error => console.log(error));
+        // props.navigation.goBack();
+  }; //saveMovie
+ 
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -34,11 +48,11 @@ export default function Edit(props) {
         </View>
     </SafeAreaView>
   );
-
 };
 
 Edit.navigationOptions = screenProps => ({
-  title: screenProps.navigation.getParam('title'),
+  // title: screenProps.navigation.getParam('title'),
+  title: "Editing this movie",
   
   headerStyle:{
     backgroundColor: 'orange'
