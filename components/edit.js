@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
+// import MovieDetails from '../../movie-rater-web/src/components/movie-details';
 
 export default function Edit(props) {
 
@@ -9,8 +10,25 @@ export default function Edit(props) {
   const [ description, setDescription] = useState(movie.description);
 
   const saveMovie = () => {
+    if(movie.id){
       fetch(`http://10.0.2.2:8000/api/movies/${movie.id}/`, {
-          method: 'PUT',
+        method: 'PUT',
+        headers: {
+           'Authorization': `Token f5da4e845178ff24b41d39188065699247835def`,
+           'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ title: title, description: description })
+      }).then( res => res.json())
+      .then( movie => {
+        // console.log(movie);
+        props.navigation.navigate("MovieList")
+      })
+      .catch( error => console.log(error));
+      // props.navigation.goBack();
+      
+    } else {
+      fetch(`http://10.0.2.2:8000/api/movies/`, {
+          method: 'POST',
           headers: {
              'Authorization': `Token f5da4e845178ff24b41d39188065699247835def`,
              'Content-Type': 'application/json'
@@ -18,12 +36,15 @@ export default function Edit(props) {
           body: JSON.stringify({ title: title, description: description })
       }).then( res => res.json())
         .then( movie => {
-          console.log(movie);
-          props.navigation.navigate("Detail", {movie: movie, title: movie.title})
+          // console.log(movie);
+          props.navigation.navigate("MovieList", {movie: movie, title: movie.title})
         })
         .catch( error => console.log(error));
         // props.navigation.goBack();
+        
   }; //saveMovie
+    }
+      
  
 
   return (
@@ -42,9 +63,9 @@ export default function Edit(props) {
                 placeholder="Description"
                 onChangeText={text => setDescription(text)}
                 value={description}
-                multiline numberOfLines={4}             
+                multiline numberOfLines={4}
              />  
-             <Button onPress={() => saveMovie()} title="Save" />      
+             <Button onPress={() => saveMovie()} title={movie.id ? "Edit" : "Add" }/>      
         </View>
     </SafeAreaView>
   );

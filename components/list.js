@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, Button } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -43,6 +43,25 @@ export default function MovieList(props) {
     </SafeAreaView>
   );
 }
+
+MovieList.navigationOptions = screenProps => ({
+  title: "List of Movies",
+  headerStyle:{
+    backgroundColor: 'orange',
+    // color: 'black'
+  },
+  headerTintColor: '#fff',
+  headerTitleStyle: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    alignSelf: 'center'
+    // textAlign: 'center'
+  },
+  headerRight: (
+       <Button title="Add" color="black" 
+       onPress={() => screenProps.navigation.navigate("Edit", {movie: {Title: '', Description: '' }, title: "List of Movies"})} />
+  )  
+})
 
 const styles = StyleSheet.create({
   container: {
