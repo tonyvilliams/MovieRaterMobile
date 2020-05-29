@@ -80,7 +80,30 @@ Edit.navigationOptions = screenProps => ({
     alignSelf: 'center'
     // textAlign: 'center'
   },
+  headerRight: (
+    <Button title="Remove" color="black" 
+    onPress={() => removeClicked(screenProps)} /> 
+  )  
 })
+
+
+const removeClicked = (props) => {
+  
+  const movie = props.navigation.getParam("movie")
+  console.log(movie);
+
+  fetch(`http://10.0.2.2:8000/api/movies/${movie.id}/`, {
+          method: 'DELETE',
+          headers: {
+             'Authorization': `Token f5da4e845178ff24b41d39188065699247835def`,
+             'Content-Type': 'application/json'
+          }          
+      }).then( movie => {
+          props.navigation.navigate("MovieList")
+        })
+        .catch( error => console.log(error));
+        // props.navigation.goBack();
+}
 
 const styles = StyleSheet.create({
   container: {

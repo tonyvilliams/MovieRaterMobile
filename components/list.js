@@ -17,7 +17,7 @@ export default function MovieList(props) {
       }).then( res => res.json())
         .then( jsonRes => setMovies(jsonRes))
         .catch( error => console.log(error));
-  }, []);
+  });
 
   const movieClicked = (movie) => {
       props.navigation.navigate("Detail", {movie: movie, title: movie.title})
@@ -60,6 +60,7 @@ MovieList.navigationOptions = screenProps => ({
   headerRight: (
        <Button title="Add" color="black" 
        onPress={() => screenProps.navigation.navigate("Edit", {movie: {Title: '', Description: '' }, title: "List of Movies"})} />
+      
   )  
 })
 
