@@ -9,25 +9,21 @@ export default function Auth(props) {
   const [ password, setPassword ] = useState("");
 
   const auth = () => {
-        // fetch(`http://10.0.2.2:8000/api/movies/${movie.id}/`, {
-        //     method: 'POST',
-        //     headers: {
-        //     'Authorization': `Token f5da4e845178ff24b41d39188065699247835def`,
-        //     'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({ title: title, description: description })
-        // }).then( res => res.json())
-        // .then( movie => {
-        //     // console.log(movie);
-        //     props.navigation.navigate("MovieList")
-        // })
-        // .catch( error => console.log(error));
-        // // props.navigation.goBack();
+        fetch(`http://10.0.2.2:8000/auth/`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username, password: password })
+        }).then( res => res.json())
+        .then( res => {
+            console.log(res);
+            // props.navigation.navigate("MovieList")
+        })
+        .catch( error => console.log(error));
+        // props.navigation.goBack();
       
-        // } 
-    }
-      
- 
+        } 
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -37,7 +33,8 @@ export default function Auth(props) {
                 style={styles.input}
                 placeholder="Username"
                 onChangeText={text => setUsername(text)}
-                value={username}             
+                value={username}
+                autoCapitalize={'none'}          
              />
              <Text style={styles.label}>password</Text> 
              <TextInput 
@@ -45,6 +42,7 @@ export default function Auth(props) {
                 placeholder="password"
                 onChangeText={text => setPassword(text)}
                 value={password}
+                secureTextEntry={true}
              />  
              <Button onPress={() => auth()} title="Login"/>      
         </View>
