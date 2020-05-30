@@ -1,26 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, FlatList, Image, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, Button, AsyncStorage } from 'react-native';
 import SafeAreaView from 'react-native-safe-area-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function MovieList(props) {
 
   const [ movies, setMovies ] = useState([]);
+  let token = null;
+
+  const getData = async () => {
+    token = await AsyncStorage.getItem('MR_Token');
+    if(token){
+      getMovies();
+    } else {
+      props.navigation.navigate("Auth");
+    }
+  };
 
   useEffect(() => {
-      fetch('http://10.0.2.2:8000/api/movies/', {
+      getData();
+  },[]);
+
+  const getMovies = () => {
+    console.log(token);
+    fetch('http://10.0.2.2:8000/api/movies/', {
           method: 'GET',
           headers: {
-             'Authorization': `Token f5da4e845178ff24b41d39188065699247835def`,
+             'Authorization': `Token ${token}`,
              'Content-Type': 'application/json'
           }
       }).then( res => res.json())
         .then( jsonRes => setMovies(jsonRes))
         .catch( error => console.log(error));
-  });
+  }
 
   const movieClicked = (movie) => {
-      props.navigation.navigate("Detail", {movie: movie, title: movie.title})
+      props.navigation.navigate("Detail", {movie: movie, title: movie.title, token: token})
   }
 
   return (
